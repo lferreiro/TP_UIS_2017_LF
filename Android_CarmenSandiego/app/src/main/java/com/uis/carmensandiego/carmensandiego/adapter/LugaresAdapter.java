@@ -22,9 +22,9 @@ public class LugaresAdapter extends ArrayAdapter<String> {
 
     public View getView(int position, View convertView, ViewGroup parent){
         LayoutInflater inflater = LayoutInflater.from(getContext());
-        View item = inflater.inflate(R.layout.fragment_pistas, null);
+        View item = inflater.inflate(R.layout.row_lugar, null);
 
-        TextView textNombreLugar = (TextView) item.findViewById(R.id.lugar);
+        TextView textNombreLugar = (TextView) item.findViewById(R.id.lugarAdapter);
         textNombreLugar.setText(lugares.get(position));
 
         return item;

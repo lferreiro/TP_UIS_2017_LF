@@ -43,7 +43,6 @@ public class ViajarFragment extends Fragment {
         llenarConexiones(view);
 
         final ListView lv = (ListView) view.findViewById(R.id.listConexiones);
-        //NO ANDA
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.uis.carmensandiego.carmensandiego.adapter.ConexionesAdapter;
@@ -84,15 +85,16 @@ public class ViajarFragment extends Fragment {
     public void viajar(final String nombrePaisSeleccionado) {
         Caso caso = ((MainActivity) getActivity()).getCaso();
         int idPaisSeleccionado = getIdPais(caso.getPais().getConexiones(), nombrePaisSeleccionado);
+        final ListView viajarLW = (ListView) getView().findViewById(R.id.listConexiones);
 
         CarmenSanDiegoService carmenSanDiegoService = new Connection().getService();
-        Viajar viajarRequest = new Viajar(caso.getId(), idPaisSeleccionado);
+        Viajar viajarRequest = new Viajar(idPaisSeleccionado, caso.getId());
         carmenSanDiegoService.viajar(viajarRequest, new Callback<Caso>() {
             @Override
             public void success(Caso caso, Response response) {
-                Toast toastOrdenEmitida = Toast.makeText(getContext(), "Conexion: "+ nombrePaisSeleccionado, Toast.LENGTH_SHORT);
-                toastOrdenEmitida.setGravity(Gravity.NO_GRAVITY, 0, 0);
-                toastOrdenEmitida.show();
+                ((MainActivity) getActivity()).setCaso(caso);
+                ((TextView) getActivity().findViewById(R.id.pais_actual)).setText("Estas en " + caso.getPais().getNombre());
+                llenarConexiones(viajarLW);
             }
 
             @Override

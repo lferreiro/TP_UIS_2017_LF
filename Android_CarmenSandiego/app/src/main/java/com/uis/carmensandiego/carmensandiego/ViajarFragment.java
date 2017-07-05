@@ -60,6 +60,11 @@ public class ViajarFragment extends Fragment {
         List<String> conexionesNombre = this.getNombreConexiones(caso.getPais().getConexiones());
         ConexionesAdapter adapter = new ConexionesAdapter(getActivity(),conexionesNombre);
         lvConexiones.setAdapter(adapter);
+
+       /* ListView lvPaisesVisitados = (ListView) view.findViewById(R.id.paisesVisitados);
+        List<String> paisesVisitados = caso.getPaisesVisitados();
+        ArrayAdapter<String> paisesVisitadosAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, paisesVisitados);
+        lvPaisesVisitados.setAdapter(paisesVisitadosAdapter);*/
     }
 
 

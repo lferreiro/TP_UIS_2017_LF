@@ -16,12 +16,18 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.uis.carmensandiego.carmensandiego.adapter.LugaresAdapter;
 import com.uis.carmensandiego.carmensandiego.model.Caso;
+import com.uis.carmensandiego.carmensandiego.model.Pista;
 import com.uis.carmensandiego.carmensandiego.service.CarmenSanDiegoService;
 import com.uis.carmensandiego.carmensandiego.service.Connection;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 public class PistasFragment extends Fragment {
 
@@ -34,7 +40,6 @@ public class PistasFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_pistas, container, false);
         obtenerLugares(view);
         final ListView lv = (ListView) view.findViewById(R.id.listLugares);
-        //NO ANDA
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -54,14 +59,32 @@ public class PistasFragment extends Fragment {
     }
 
     public void mostrarPistas(String lugar){
+        Caso caso = ((MainActivity) getActivity()).getCaso();
+
+        CarmenSanDiegoService carmenSanDiegoService = new Connection().getService();
+        carmenSanDiegoService.getPista(caso.getId(), lugar, new Callback<Pista>() {
+            @Override
+            public void success(Pista pista, Response response) {
+                    llenarPista(pista);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                    Log.e("error", error.getMessage());
+                    error.printStackTrace();
+            }
+        });
 
     }
 
-    /*int idVillanoSeleccionado = getIdVillano(villanos, nombreVillanoSeleccionado);
-
-    Toast toastOrdenEmitida = Toast.makeText(getContext(), "Orden emitida exitosamente contra: "+ nombreVillanoSeleccionado, Toast.LENGTH_SHORT);
-        toastOrdenEmitida.setGravity(Gravity.CENTER, 0, 0);
-
-        toastOrdenEmitida.show();*/
+    public void llenarPista(Pista pista){
+        final TextView pistasTw = ((TextView) getView(). findViewById(R.id.textoPistas));
+        if(pista.getResultadoOrden() == null){
+            pistasTw.setText(pista.getPista());
+        }
+        else{
+            pistasTw.setText("Resultado :" + pista.getResultadoOrden());
+        }
+    }
 }
 

@@ -83,7 +83,7 @@ public class PistasFragment extends Fragment {
             pistasTw.setText(pista.getPista());
         }
         else{
-            pistasTw.setText("Resultado :" + pista.getResultadoOrden());
+            pistasTw.setText("Resultado: " + pista.getResultadoOrden());
         }
     }
 }

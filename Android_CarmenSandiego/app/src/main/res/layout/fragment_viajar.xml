@@ -20,10 +20,17 @@
         android:textAlignment="center"
         android:id="@+id/listConexiones"/>
 
-        <ListView
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:text="Paises Visitados: "
+        android:textSize="15dp"
+        android:layout_marginTop="20dp"/>
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:textAlignment="center"
         android:id="@+id/paisesVisitados"/>
 

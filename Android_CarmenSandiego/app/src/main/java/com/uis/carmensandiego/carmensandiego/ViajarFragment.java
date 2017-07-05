@@ -61,10 +61,10 @@ public class ViajarFragment extends Fragment {
         ConexionesAdapter adapter = new ConexionesAdapter(getActivity(),conexionesNombre);
         lvConexiones.setAdapter(adapter);
 
-       /* ListView lvPaisesVisitados = (ListView) view.findViewById(R.id.paisesVisitados);
+        ListView lvPaisesVisitados = (ListView) view.findViewById(R.id.paisesVisitados);
         List<String> paisesVisitados = caso.getPaisesVisitados();
         ArrayAdapter<String> paisesVisitadosAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, paisesVisitados);
-        lvPaisesVisitados.setAdapter(paisesVisitadosAdapter);*/
+        lvPaisesVisitados.setAdapter(paisesVisitadosAdapter);
     }
 
 
@@ -89,7 +89,6 @@ public class ViajarFragment extends Fragment {
     public void viajar(final String nombrePaisSeleccionado) {
         Caso caso = ((MainActivity) getActivity()).getCaso();
         int idPaisSeleccionado = getIdPais(caso.getPais().getConexiones(), nombrePaisSeleccionado);
-        final ListView viajarLW = (ListView) getView().findViewById(R.id.listConexiones);
 
         CarmenSanDiegoService carmenSanDiegoService = new Connection().getService();
         Viajar viajarRequest = new Viajar(idPaisSeleccionado, caso.getId());
@@ -98,7 +97,7 @@ public class ViajarFragment extends Fragment {
             public void success(Caso caso, Response response) {
                 ((MainActivity) getActivity()).setCaso(caso);
                 ((TextView) getActivity().findViewById(R.id.pais_actual)).setText("Estas en " + caso.getPais().getNombre());
-                llenarConexiones(viajarLW);
+                llenarConexiones(getView());
             }
 
             @Override
